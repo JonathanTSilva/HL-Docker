@@ -1,4 +1,7 @@
-# HL-Docker
+<!-- Simple logo -->
+<a href="#meu-guia-de-docker"><img width="400px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/2560px-Docker_%28container_engine%29_logo.svg.png" align="right" /></a>
+
+# Meu guia de Docker
 
 🛠 Passo a passo que adoto na minha utilização de Docker
 
