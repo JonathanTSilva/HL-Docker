@@ -5,7 +5,7 @@
 
 🛠 Passo a passo que adoto na minha utilização de Docker
 
-- [HL-Docker](#hl-docker)
+- [Meu guia de Docker](#meu-guia-de-docker)
   - [1. Instalação](#1-instalação)
     - [1.1. Windows](#11-windows)
     - [1.2. MAC](#12-mac)
@@ -27,11 +27,7 @@ Docker é uma plataforma aberta para desenvolvimento, envio e execução de apli
 
 ### 1.1. Windows
 
-
-
 ### 1.2. MAC
-
-
 
 ### 1.3. Linux
 
@@ -141,12 +137,12 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 
 #### 2.1.1. Resumo
 
-| Ação    | Comando | Descrição |
-| ------- | ------- | --------- |
-| Iniciar | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`       | Primeiro cria suma camada de contêiner gravável sobre a imagem especificada (`docker create`) e, em seguida inicia (`docker start`), usando o comando especificado          |
-| Parar   |         |           |
-| Listar  |         |           |
-| Deletar |         |           |
+| Ação    | Comando                                         | Descrição                                                                                                                                                          |
+| ------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Iniciar | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | Primeiro cria suma camada de contêiner gravável sobre a imagem especificada (`docker create`) e, em seguida inicia (`docker start`), usando o comando especificado |
+| Parar   |                                                 |                                                                                                                                                                    |
+| Listar  |                                                 |                                                                                                                                                                    |
+| Deletar |                                                 |                                                                                                                                                                    |
 
 ### 2.2. Container
 
