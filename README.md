@@ -17,6 +17,7 @@
     - [2.1. Imagem](#21-imagem)
       - [2.1.1. Resumo](#211-resumo)
     - [2.2. Container](#22-container)
+    - [O que acontece no "docker container run"](#o-que-acontece-no-docker-container-run)
       - [2.2.1. Resumo](#221-resumo)
 
 ## 1. Instalação
@@ -161,7 +162,7 @@ Ao adicionar a opção `--detach` no código acima, uma execução em segundo pl
 Para enviar um sinal de parada ao processo docker quando estiver rodando em primeiro plano, utilize:
 
 ```docker
-Ctrl + c
+Ctrl + C
 ```
 
 Entretanto, isso ocorre bem no sistema Mac e Linux. No Windows, o sistema é fechado do primeiro plano, mas ainda continua rodando em segundo. Assim, caso esteja no Windows, antes de utilizar o comando acima, é preciso dar:
@@ -202,13 +203,41 @@ Com o comando `top`, é possível visualizar os processos em execução de um co
 docker container top <container name>
 ```
 
+Além disso, é possível visualizar todos os processos rodando no host, basta utilizar:
+
+```console
+ps aux
+```
+
+Há a opção de utilizá-lo com `ps aux | grep <keyword>` para filtrar a palavra desejada por todos os processos que estão rodando.
+
 Para remover algum container, ou até mesmo todos de uma vez só (em alguns casos, subcomandos do Docker podem levar múltiplos valores) utilize, respectivamente:
 
 ```docker
-docker container rm <container name1> <container name1> <container nameN>
+docker container rm <container id1/name1> <container id2/name2> <container idN/nameN>
 ```
 
 Um erro frequente para o processo acima é tentar excluir um container enquanto estiver rodando. Para realizar tal ação basta parar o container ou utilizar o comando `-f` para forçar a remoção.
+
+### O que acontece no "docker container run"
+
+Ao dar o comando `docker container run`, no plano secundário está  acontecendo os seguintes processos:
+
+1. A imagem é procurada localmente no cache de imagens, mas nada é encontrado;
+2. Então, a imagem é procurada remotamente no repositório default (Docker Hub);
+3. Ao encontrar, a última versão da imagem é baixada (e.g. nginx:latest);
+4. Cria um novo container baseado na imagem e prepara para a inicialização;
+5. Dá para ele um IP virtual na rede privada dentro do docker engine;
+6. Abre a porta 80 no host e aponta para a porta 80 do container;
+7. Inicia o container usando o CMD no Dockerfile da imagem.
+
+**Exemplo de mudança de padrão:**
+
+```docker
+docker container run --publish 8080:80 --name webhost -d nginx:1.11 nginx -T
+```
+
+A parte `8080:80`é responsável pela mudança da  porta "ouvida" pelo host. `nginx:1.11` altera a versão requerida do nginx e o comando posterior a esse, muda o CMD run no "start"
 
 #### 2.2.1. Resumo
 
