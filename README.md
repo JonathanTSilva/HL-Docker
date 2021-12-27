@@ -128,7 +128,7 @@ A tabela abaixo aponta as principais diferenças entre eles:
 | pode ser compartilhado por meio de uma plataforma de registro público ou privado | precisa de recursos computacionais para rodar - rodam como uma máquina virtual |
 | crie apenas uma vez                                                              | múltiplos contêineres podem ser criados de uma mesma imagem                    |
 
-Uma outra analogia simples para melhor compreensão é pensar em uma imagem do Docker como uma receita e um contêiner como o bolo preparado a partir dessa receita. A receita apresenta as instruções para assar o bolo. Você não pode gostar de comer o bolo se não colocar as instruções em ação. É preciso seguir a receita para preparar o bolo e comê-lo. Da mesma forma, você deve seguir as instruções na imagem do Docker para criar e iniciar um contêiner e aproveitar os benefícios do Docker. Você pode assar tantos bolos quanto possível com uma única receita - assim como uma imagem pode criar vários contêineres. No entanto, se você alterar a receita, o sabor dos bolos existentes não mudará. Apenas bolos recém-assados ​​usarão a receita modificada. Da mesma forma, se você fizer alterações em uma imagem de contêiner, não afetará os contêineres já em execução.
+Uma outra analogia simples para melhor compreensão é pensar em uma imagem do Docker como uma receita e um contêiner como o bolo preparado a partir dessa receita. A receita apresenta as instruções para assar o bolo. Você não pode gostar de comer o bolo se não colocar as instruções em ação. É preciso seguir a receita para preparar o bolo e comê-lo. Da mesma forma, você deve seguir as instruções na imagem do Docker para criar e iniciar um contêiner e aproveitar os benefícios do Docker. Você pode assar tantos bolos quanto possível com uma única receita - assim como uma imagem pode criar vários contêineres. No entanto, se você alterar a receita, o sabor dos bolos existentes não mudará. Apenas bolos recém-assados usarão a receita modificada. Da mesma forma, se você fizer alterações em uma imagem de contêiner, não afetará os contêineres já em execução.
 
 ## 3. Docker File
 
@@ -267,7 +267,6 @@ docker start -a -i <container id>
 ```docker
 docker stop <container id>
 ```
-
 
 <!-- Markdown's Links -->
 <!-- SITES -->
