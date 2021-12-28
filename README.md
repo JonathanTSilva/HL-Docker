@@ -17,7 +17,8 @@
     - [4.1. Imagem](#41-imagem)
       - [4.1.1. Resumo](#411-resumo)
     - [4.2. Container](#42-container)
-    - [O que acontece no "docker container run"](#o-que-acontece-no-docker-container-run)
+    - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
+    - [🢚 Gerenciando vários containers](#-gerenciando-vários-containers)
       - [4.2.1. Resumo](#421-resumo)
 
 ## 1. Instalação
@@ -114,7 +115,7 @@ docker <commando> <sub-comando> (options)
 
 ## 3. Imagem vs Container
 
-Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner. A mesma imagem pode criar mais contêineres. Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados ​​para criar e inicializar um aplicativo em um novo contêiner do Docker. 
+Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner. A mesma imagem pode criar mais contêineres. Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados ​​para criar e inicializar um aplicativo em um novo contêiner do Docker.
 
 Cada imagem é definida por um **Dockerfile**, um arquivo de configuração que contém todos os comandos que um usuário precisa executar para modelar a imagem. As imagens e contêineres do Docker trabalham juntos para permitir que você liberte todo o potencial da tecnologia inovadora do Docker. No entanto, eles têm diferenças sutis que podem ser difíceis de perceber, especialmente para um iniciante.
 
@@ -219,7 +220,7 @@ docker container rm <container id1/name1> <container id2/name2> <container idN/n
 
 Um erro frequente para o processo acima é tentar excluir um container enquanto estiver rodando. Para realizar tal ação basta parar o container ou utilizar o comando `-f` para forçar a remoção.
 
-### O que acontece no "docker container run"
+### 🢚 O que acontece no "docker container run"
 
 Ao dar o comando `docker container run`, no plano secundário está  acontecendo os seguintes processos:
 
@@ -238,6 +239,19 @@ docker container run --publish 8080:80 --name webhost -d nginx:1.11 nginx -T
 ```
 
 A parte `8080:80`é responsável pela mudança da  porta "ouvida" pelo host. `nginx:1.11` altera a versão requerida do nginx e o comando posterior a esse, muda o CMD run no "start"
+
+### 🢚 Gerenciando vários containers
+
+Antes de qualquer outra dúvida, vale ressaltar que os principais meios para resolver problemas e tirar dúvidas são o site de [documentação do docker][3] e o comando `--help`.
+
+Assim, supondo uma utilização de 3 containers rodando simultaneamente: nginx, mysql e httpd (apache server). Para que isso ocorra com êxito, se atentar:
+
+1. Rodar todos eles com o `--detach` (ou `-d`) e nomear com o `--name`, para maior controle;
+2. Alterar as portas, por exemplo: nginx para escutar 80:80, httpd na 8080:80 e o mysql na 3306:3306;
+3. Quando rodar o mysql, usar a opção `--env` (ou `-e`) para passar em MYSQL_RANDOM_ROOT_PASSWORD=YES;
+4. Usar o `docker container logs` no mysql para encontrar a senha randômica criada na inicialização.
+5. Limpar tudo com o `docker container stop` e `docker container rm` (ambos os comandos permitem múltiplos nomes ou IDs);
+6. Usar o `docker container ls` para se assegurar que tudo está correto após a exclusão (ou `ls -a`).
 
 #### 4.2.1. Resumo
 
@@ -272,6 +286,7 @@ docker stop <container id>
 <!-- SITES -->
 [1]: https://landscape.cncf.io/?zoom=200
 [2]: https://docs.docker.com/engine/install/
+[3]: https://docs.docker.com
 
 <!-- ARQUIVOS -->
 
