@@ -280,12 +280,15 @@ docker container rm webserver proxy db
 
 #### 4.2.1. Resumo
 
-| Ação    | Comando | Descrição |
-| ------- | ------- | --------- |
-| Iniciar |         |           |
-| Parar   |         |           |
-| Listar  |         |           |
-| Deletar |         |           |
+| Comando                  | Descrição                                        |
+| ------------------------ | ------------------------------------------------ |
+| docker container run     |                                                  |
+| docker container stop    |                                                  |
+| docker container ls      |                                                  |
+| docker container rm      |                                                  |
+| docker container top     | lista os processos de um container               |
+| docker container inspect | detalha a configuração de um container           |
+| docker container stats   | apresenta as estatísticas de todos os containers |
 
 ```docker
 docker run <imagem>
