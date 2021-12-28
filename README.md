@@ -14,11 +14,11 @@
   - [3. Imagem vs Container](#3-imagem-vs-container)
   - [3. Docker File](#3-docker-file)
   - [4. Comandos Intermediários e Avançados](#4-comandos-intermediários-e-avançados)
-    - [2.1. Imagem](#21-imagem)
-      - [2.1.1. Resumo](#211-resumo)
-    - [2.2. Container](#22-container)
+    - [4.1. Imagem](#41-imagem)
+      - [4.1.1. Resumo](#411-resumo)
+    - [4.2. Container](#42-container)
     - [O que acontece no "docker container run"](#o-que-acontece-no-docker-container-run)
-      - [2.2.1. Resumo](#221-resumo)
+      - [4.2.1. Resumo](#421-resumo)
 
 ## 1. Instalação
 
@@ -134,9 +134,9 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 
 ## 4. Comandos Intermediários e Avançados
 
-### 2.1. Imagem
+### 4.1. Imagem
 
-#### 2.1.1. Resumo
+#### 4.1.1. Resumo
 
 | Ação    | Comando                                         | Descrição                                                                                                                                                          |
 | ------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -145,7 +145,7 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 | Listar  |                                                 |                                                                                                                                                                    |
 | Deletar |                                                 |                                                                                                                                                                    |
 
-### 2.2. Container
+### 4.2. Container
 
 Para iniciar um container, utilize o exemplo a seguir:
 
@@ -239,7 +239,7 @@ docker container run --publish 8080:80 --name webhost -d nginx:1.11 nginx -T
 
 A parte `8080:80`é responsável pela mudança da  porta "ouvida" pelo host. `nginx:1.11` altera a versão requerida do nginx e o comando posterior a esse, muda o CMD run no "start"
 
-#### 2.2.1. Resumo
+#### 4.2.1. Resumo
 
 | Ação    | Comando | Descrição |
 | ------- | ------- | --------- |
