@@ -220,7 +220,7 @@ docker container rm <container id1/name1> <container id2/name2> <container idN/n
 
 Um erro frequente para o processo acima é tentar excluir um container enquanto estiver rodando. Para realizar tal ação basta parar o container ou utilizar o comando `-f` para forçar a remoção.
 
-### 🢚 O que acontece no "docker container run"
+#### 🢚 O que acontece no "docker container run"
 
 Ao dar o comando `docker container run`, no plano secundário está  acontecendo os seguintes processos:
 
@@ -240,7 +240,7 @@ docker container run --publish 8080:80 --name webhost -d nginx:1.11 nginx -T
 
 A parte `8080:80`é responsável pela mudança da  porta "ouvida" pelo host. `nginx:1.11` altera a versão requerida do nginx e o comando posterior a esse, muda o CMD run no "start"
 
-### ✍ Exercício de fixação: Gerenciando vários containers
+#### ✍ Exercício de fixação: Gerenciando vários containers
 
 Antes de qualquer outra dúvida, vale ressaltar que os principais meios para resolver problemas e tirar dúvidas são o site de [documentação do docker][3] e o comando `--help`.
 
