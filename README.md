@@ -18,7 +18,7 @@
       - [4.1.1. Resumo](#411-resumo)
     - [4.2. Container](#42-container)
     - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
-    - [🢚 Gerenciando vários containers](#-gerenciando-vários-containers)
+    - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
       - [4.2.1. Resumo](#421-resumo)
 
 ## 1. Instalação
@@ -240,11 +240,11 @@ docker container run --publish 8080:80 --name webhost -d nginx:1.11 nginx -T
 
 A parte `8080:80`é responsável pela mudança da  porta "ouvida" pelo host. `nginx:1.11` altera a versão requerida do nginx e o comando posterior a esse, muda o CMD run no "start"
 
-### 🢚 Gerenciando vários containers
+### ✍ Exercício de fixação: Gerenciando vários containers
 
 Antes de qualquer outra dúvida, vale ressaltar que os principais meios para resolver problemas e tirar dúvidas são o site de [documentação do docker][3] e o comando `--help`.
 
-Assim, supondo uma utilização de 3 containers rodando simultaneamente: nginx, mysql e httpd (apache server). Para que isso ocorra com êxito, se atentar:
+Assim, supondo uma utilização de 3 containers rodando simultaneamente: nginx, mysql e httpd (apache server):
 
 1. Rodar todos eles com o `--detach` (ou `-d`) e nomear com o `--name`, para maior controle;
 2. Alterar as portas, por exemplo: nginx para escutar 80:80, httpd na 8080:80 e o mysql na 3306:3306;
@@ -252,6 +252,31 @@ Assim, supondo uma utilização de 3 containers rodando simultaneamente: nginx, 
 4. Usar o `docker container logs` no mysql para encontrar a senha randômica criada na inicialização.
 5. Limpar tudo com o `docker container stop` e `docker container rm` (ambos os comandos permitem múltiplos nomes ou IDs);
 6. Usar o `docker container ls` para se assegurar que tudo está correto após a exclusão (ou `ls -a`).
+
+**⋙ Resposta**
+
+```docker
+docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+
+docker container logs db
+
+<encontrar a senha gerada randomicamente> e copiar
+
+docker container run -d --name webserver -p 8080:80 httpd
+
+docker container run -d --name proxy -p 80:80 nginx
+
+docker container ls (para ver se os containers criados já estão rodando)
+
+curl localhost (testar a resposta do nginx)
+curl localhost:8080 (testar resposta do apache)
+
+docker container stop webserver proxy db
+
+docker container ls -a (para ver se os containers pararam)
+
+docker container rm webserver proxy db
+```
 
 #### 4.2.1. Resumo
 
