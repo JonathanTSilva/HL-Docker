@@ -17,8 +17,9 @@
     - [4.1. Imagem](#41-imagem)
       - [4.1.1. Resumo](#411-resumo)
     - [4.2. Container](#42-container)
-    - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
-    - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
+      - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
+      - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
+      - [🢚 Abrir um *shell* dentro de um container](#-abrir-um-shell-dentro-de-um-container)
       - [4.2.1. Resumo](#421-resumo)
 
 ## 1. Instalação
@@ -277,6 +278,39 @@ docker container ls -a (para ver se os containers pararam)
 
 docker container rm webserver proxy db
 ```
+
+#### 🢚 Abrir um *shell* dentro de um container
+
+O *Shell* pode ser definido como sendo um intérprete de comandos com uma interface entre o usuário e o sistema operacional. Existem vários tipos de *shell*, sendo os mais comuns o sh (chamado *Bourne shell*), o bash (Bourne again shell), o csh (C Shell), o Tcsh (Tenex C shell), o ksh (Korn shell) e o zsh (Zero shell).
+
+Durante a execução de um comando no shell, é criado um processo que abrirá três fluxos:
+
+* stdin  - entrada padrão - o stdin se refere ao teclado e é identificado pelo número 0;
+* stdout - saída padrão - o stdout se refere à tela e é identificado pelo número 1;
+* stderr - erro padrão - o stderr se refere à tela e é identificado pelo número 2:
+
+Sem mais delongas, para obtermos um shell dentro de um container,  pode ser realizado um dos seguintes passos:
+
+1. `docker container run -it` - para iniciar um novo container de forma interativa;
+2. `docker container exec -it` - para rodar um comando adicional em container já existente;
+
+A opção `-it` que acompanha os comandos acima, significa a junção de dois comandos: o `-t` - pseudo-tty (que simula um terminal real, como é feito no SSH) e `-i` - interactive (que mantem a sessão aberta para receber entradas do terminal (stdin)). Caso você rode este comando, deve ser passado a opção de qual terminal será aberto com o container. Como exemplo, usaremos o **bash**.
+
+```docker
+docker container run -it --name proxy nginx bash
+```
+
+Ao entrar no shell do container, todos os comandos normais que seriam dados à alguma máquina podem ser testados, como o `ls -al`. Para sair, basta dar `exit` na linha de comando.
+
+Para o caso de já possuir um container, a opção (2) abrirá um novo processo dentro deste container que já está rodando.
+
+```docker
+docker container exec -it mysql bash
+```
+
+Mas lembre, só é possível rodar comandos (como o **bash**) em containers que já possuem aquela aplicação instalada. Caso seja feito um `pull` do Alpine e tentar rodar ele com a opção `-it alpine bash`, uma mensagem de erro aparecerá, pois o **bash** não está presente na imagem do Alpine, mas sim o **sh**.
+
+
 
 #### 4.2.1. Resumo
 
