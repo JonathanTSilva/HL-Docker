@@ -116,7 +116,7 @@ docker <commando> <sub-comando> (options)
 
 ## 3. Imagem vs Container
 
-Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner. A mesma imagem pode criar mais contêineres. Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados ​​para criar e inicializar um aplicativo em um novo contêiner do Docker.
+Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner. A mesma imagem pode criar mais contêineres. Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados para criar e inicializar um aplicativo em um novo contêiner do Docker.
 
 Cada imagem é definida por um **Dockerfile**, um arquivo de configuração que contém todos os comandos que um usuário precisa executar para modelar a imagem. As imagens e contêineres do Docker trabalham juntos para permitir que você liberte todo o potencial da tecnologia inovadora do Docker. No entanto, eles têm diferenças sutis que podem ser difíceis de perceber, especialmente para um iniciante.
 
