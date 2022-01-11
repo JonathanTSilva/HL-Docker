@@ -20,6 +20,7 @@
       - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
       - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
       - [🢚 Abrir um *shell* dentro de um container](#-abrir-um-shell-dentro-de-um-container)
+      - [🢚 Redes no Docker](#-redes-no-docker)
       - [4.2.1. Resumo](#421-resumo)
 
 ## 1. Instalação
@@ -310,7 +311,25 @@ docker container exec -it mysql bash
 
 Mas lembre, só é possível rodar comandos (como o **bash**) em containers que já possuem aquela aplicação instalada. Caso seja feito um `pull` do Alpine e tentar rodar ele com a opção `-it alpine bash`, uma mensagem de erro aparecerá, pois o **bash** não está presente na imagem do Alpine, mas sim o **sh**.
 
+#### 🢚 Redes no Docker
 
+* Cada container conecta em uma rede virtual privada em "bridge";
+* Cada rede virtual roteia através do firewall NAT no IP do host;
+* Todos os containers em uma rede virtual pode conversar com outros sem o `-p`;
+* As boas práticas são criar uma nova rede virtual para cada app:
+  * rede "my_web_app" para os containers mysql e php/apache;
+  * rede "my_api" para o container mongo e nodejs.
+* Vincule containers a mais de uma rede virtual (ou não);
+* Ignore as redes virtuais e utilize o IP do host (--net=host);
+* Use diferentes drivers de rede Docker para ganhar novas habilidades
+
+Se utilizarmos o `ifconfig` para enxergar o IP do container vamos ter um dado. Por outro lado, se utilizar o seguinte comando para ver o IP, teremos um diferente do primeiro:
+
+```docker
+docker container inspect --format "{{ .NetworkSettings.IPAddress }}" <container>
+```
+
+A explicação disso se dá
 
 #### 4.2.1. Resumo
 
@@ -323,6 +342,7 @@ Mas lembre, só é possível rodar comandos (como o **bash**) em containers que 
 | docker container top     | lista os processos de um container               |
 | docker container inspect | detalha a configuração de um container           |
 | docker container stats   | apresenta as estatísticas de todos os containers |
+|docker container port | checkar quais as portas estão abertas naquele container|
 
 ```docker
 docker run <imagem>
