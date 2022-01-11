@@ -329,7 +329,45 @@ Se utilizarmos o `ifconfig` para enxergar o IP do container vamos ter um dado. P
 docker container inspect --format "{{ .NetworkSettings.IPAddress }}" <container>
 ```
 
-A explicação disso se dá
+A explicação disso se dá pela utilização de NAT no docker.
+
+Para mostrar as redes, utilizar o comando:
+
+```docker
+docker network ls
+```
+
+Para inspecionar uma rede específica:
+
+```docker
+docker network inspect
+```
+
+Para criar uma rede nova:
+
+```docker
+docker network create --driver
+```
+
+Assim, ao criar uma rede, ela pode ser inicializada com um container com:
+
+```docker
+docker container run -d --name new_nginx --network my_app_net nginx
+```
+
+Vincular e desvincular uma rede com um container:
+
+```docker
+docker network connect
+docker network disconnect
+```
+
+**Padrões de segurança em redes ne docker**
+* Crie seus aplicativos para que o frontend/backend fique na mesma rede Docker;
+• Sua intercomunicação nunca sai do host;
+• Todas as portas expostas externamente são fechadas por padrão;
+• Você deve expor manualmente via -p, que é o melhor padrão de segurança!;
+• Isso fica ainda melhor mais tarde com redes Swarm e Overlay.
 
 #### 4.2.1. Resumo
 
@@ -343,6 +381,11 @@ A explicação disso se dá
 | docker container inspect | detalha a configuração de um container           |
 | docker container stats   | apresenta as estatísticas de todos os containers |
 |docker container port | checkar quais as portas estão abertas naquele container|
+|docker network ls||
+|docker network inspect||
+|docker network create --driver||
+|docker network connect||
+|docker network disconnect||
 
 ```docker
 docker run <imagem>
