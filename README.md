@@ -374,24 +374,26 @@ docker network disconnect
 O Docker utiliza os nomes do container como equivalência de um nome de host para eles se conversarem.
 
 Supondo ambiente com dois containers: um chamado `new_nginx` e outro `my_nginx`(verificá-los utilizando `docker container ls`). Se pedimos para inspecionar as redes dos containers veremos que cada um pertence a mesma rede `my_app_net` (inspecionar por `docker network inspect <container name/id>`). Agora, rodando o `my_nginx` com `docker container exec -it my_nginx ping new_nginx` ele vai estar pingando já, apenas pelo DNS da rede, não precisando de IP.
+  
+
 
 #### 4.2.1. Resumo
 
-| Comando                  | Descrição                                        |
-| ------------------------ | ------------------------------------------------ |
-| docker container run     |                                                  |
-| docker container stop    |                                                  |
-| docker container ls      |                                                  |
-| docker container rm      |                                                  |
-| docker container top     | lista os processos de um container               |
-| docker container inspect | detalha a configuração de um container           |
-| docker container stats   | apresenta as estatísticas de todos os containers |
-|docker container port | checkar quais as portas estão abertas naquele container|
-|docker network ls||
-|docker network inspect||
-|docker network create --driver||
-|docker network connect||
-|docker network disconnect||
+| Comando                        | Descrição                                              |
+| ------------------------------ | ------------------------------------------------------ |
+| docker container run           |                                                        |
+| docker container stop          |                                                        |
+| docker container ls            |                                                        |
+| docker container rm            |                                                        |
+| docker container top           | lista os processos de um container                     |
+| docker container inspect       | detalha a configuração de um container                 |
+| docker container stats         | apresenta as estatísticas de todos os containers       |
+| docker container port          | checkar quais as portas estão abertas naquele container|
+| docker network ls              |                                                        |
+| docker network inspect         |                                                        |
+| docker network create --driver |                                                        |
+| docker network connect         |                                                        |
+| docker network disconnect      |                                                        |
 
 ```docker
 docker run <imagem>
