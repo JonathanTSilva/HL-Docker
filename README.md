@@ -29,11 +29,16 @@ Docker é uma plataforma aberta para desenvolvimento, envio e execução de apli
 
 É possível baixar e instalar o Docker em várias plataformas. As subseções a seguir guiarão na instalação do docker para os três eco-sistemas: Windows, MAC e Linux.
 
-### 1.1. Windows
+### 1.1. Windows e MAC
 
-### 1.2. MAC
+Atualmente, o Docker é divido em dois produtos, Community Edition (CE) e Enterprise Edition (EE). Como os nomes sugerem, o Community é gratuito e voltado a comunidade, enquanto o Enterprise é recomendado para uso empresarial. Tudo que é necessário para trabalhar com Docker é fornecido pela versão Community que é gratuita.
 
-### 1.3. Linux
+O Docker possui uma versão para Desktop que irá facilitar nossa vida. Se você gosta de linha de comando, também fará a instalação do CLI. Vamos então acessar a página de início do Docker e clicar em **Download Desktop and Take a Tutorial**. Isto vai levar a página de **Downloads**. Selecione a versão que atende seu sistema operacional, como **Docker for Windows ou Docker for Mac** e na tela seguinte selecione **Get Docker**. Siga a instalação dos pacotes para realizar todo o processo. Recomendamos que ao término do mesmo reinicie seu computador.
+
+**WINDOWS ONLY**
+Durante a instalação do Docker para Windows, você será questionado sobre utilizar containers Windows ao invés de Linux. Fique à vontade em testar esta opção, mas para utilização do Docker em nossos cursos, recomendamos que NÃO DEIXE-A MARCADA. **Sempre vamos utilizar containers Linux** como padrão.
+
+### 1.2. Linux
 
 Todo o processo de instalação apresentado neste item, pode ser conferido diretamente pelo site do Docker: [Install Docker Engine][2]. Para demais informações, verifique o site.
 
