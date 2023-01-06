@@ -5,22 +5,24 @@
 
 🛠 Passo a passo que adoto na minha utilização de Docker
 
-- [1. Instalação](#1-instalação)
-  - [1.1. Windows](#11-windows)
-  - [1.2. MAC](#12-mac)
-  - [1.3. Linux](#13-linux)
-- [2. Comandos Básicos](#2-comandos-básicos)
-- [3. Imagem vs Container](#3-imagem-vs-container)
-- [3. Docker File](#3-docker-file)
-- [4. Comandos Intermediários e Avançados](#4-comandos-intermediários-e-avançados)
-  - [4.1. Imagem](#41-imagem)
-    - [4.1.1. Resumo](#411-resumo)
-  - [4.2. Container](#42-container)
-    - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
-    - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
-    - [🢚 Abrir um *shell* dentro de um container](#-abrir-um-shell-dentro-de-um-container)
-    - [🢚 Redes no Docker](#-redes-no-docker)
-    - [4.2.1. Resumo](#421-resumo)
+- [Meu guia de Docker](#meu-guia-de-docker)
+  - [1. Instalação](#1-instalação)
+    - [1.1. Windows e MAC](#11-windows-e-mac)
+    - [1.2. Linux](#12-linux)
+  - [2. Comandos Básicos](#2-comandos-básicos)
+  - [3. Imagem vs Container](#3-imagem-vs-container)
+  - [3. Docker File](#3-docker-file)
+  - [4. Comandos Intermediários e Avançados](#4-comandos-intermediários-e-avançados)
+    - [4.1. Imagem](#41-imagem)
+      - [4.1.1. Resumo](#411-resumo)
+    - [4.2. Container](#42-container)
+      - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
+      - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
+      - [🢚 Abrir um *shell* dentro de um container](#-abrir-um-shell-dentro-de-um-container)
+      - [🢚 Redes no Docker](#-redes-no-docker)
+      - [4.2.1. Resumo](#421-resumo)
+  - [5. FAQ](#5-faq)
+    - [Containers](#containers)
 
 ## 1. Instalação
 
@@ -380,7 +382,6 @@ O Docker utiliza os nomes do container como equivalência de um nome de host par
 Supondo ambiente com dois containers: um chamado `new_nginx` e outro `my_nginx`(verificá-los utilizando `docker container ls`). Se pedimos para inspecionar as redes dos containers veremos que cada um pertence a mesma rede `my_app_net` (inspecionar por `docker network inspect <container name/id>`). Agora, rodando o `my_nginx` com `docker container exec -it my_nginx ping new_nginx` ele vai estar pingando já, apenas pelo DNS da rede, não precisando de IP.
   
 
-
 #### 4.2.1. Resumo
 
 | Comando                        | Descrição                                              |
@@ -418,6 +419,16 @@ docker start -a -i <container id>
 ```docker
 docker stop <container id>
 ```
+
+## 5. FAQ
+
+### Containers
+
+1. **Como sair do shell do container sem pará-lo?** <kbd>Ctrl</kbd> + <kbd>P</kbd> + <kbd>Q</kbd>
+2. **Como conectar em um container que está rodando?** `docker container attach <container ID>`
+3. **Rodei um container do apache/nginx com terminal interativo (`-ti`) e não abre nenhum shell. Por que?**
+O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio processo do servidor. Todo processo em execução neste container precisa estar rodando em foreground, não pode estar "daemonizado" (rodando como daemon - em segundo plano/background). Logo, é preciso passar a opção `-d` para rodar o container, ao invés de `-ti` - isso faz com que o container seja um daemon (não é possível dar `attach`).
+4. **Então, como conectar em um container rodando como daemon?** `docker container exe -ti <container ID> <cmd>`
 
 <!-- Markdown's Links -->
 <!-- SITES -->
