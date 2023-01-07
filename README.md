@@ -22,7 +22,11 @@
       - [🢚 Redes no Docker](#-redes-no-docker)
       - [4.2.1. Resumo](#421-resumo)
   - [5. FAQ](#5-faq)
+    - [Imagens](#imagens)
     - [Containers](#containers)
+    - [Dockerfile](#dockerfile)
+    - [Docker Hub](#docker-hub)
+    - [Docker Registry](#docker-registry)
 
 ## 1. Instalação
 
@@ -147,12 +151,14 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 
 #### 4.1.1. Resumo
 
-| Ação    | Comando                                         | Descrição                                                                                                                                                          |
-| ------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Iniciar | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | Primeiro cria suma camada de contêiner gravável sobre a imagem especificada (`docker create`) e, em seguida inicia (`docker start`), usando o comando especificado |
-| Parar   |                                                 |                                                                                                                                                                    |
-| Listar  |                                                 |                                                                                                                                                                    |
-| Deletar |                                                 |                                                                                                                                                                    |
+| Ação      | Comando                                         | Descrição                                                                                                                                                          |
+| --------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Iniciar   | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | Primeiro cria suma camada de contêiner gravável sobre a imagem especificada (`docker create`) e, em seguida inicia (`docker start`), usando o comando especificado |
+| Parar     |                                                 |                                                                                                                                                                    |
+| Listar    |                                                 |                                                                                                                                                                    |
+| Deletar   |                                                 |                                                                                                                                                                    |
+| Pausar    |                                                 |                                                                                                                                                                    |
+| Despausar |                                                 |                                                                                                                                                                    |
 
 ### 4.2. Container
 
@@ -384,21 +390,21 @@ Supondo ambiente com dois containers: um chamado `new_nginx` e outro `my_nginx`(
 
 #### 4.2.1. Resumo
 
-| Comando                        | Descrição                                              |
-| ------------------------------ | ------------------------------------------------------ |
-| docker container run           |                                                        |
-| docker container stop          |                                                        |
-| docker container ls            |                                                        |
-| docker container rm            |                                                        |
-| docker container top           | lista os processos de um container                     |
-| docker container inspect       | detalha a configuração de um container                 |
-| docker container stats         | apresenta as estatísticas de todos os containers       |
-| docker container port          | checkar quais as portas estão abertas naquele container|
-| docker network ls              |                                                        |
-| docker network inspect         |                                                        |
-| docker network create --driver |                                                        |
-| docker network connect         |                                                        |
-| docker network disconnect      |                                                        |
+| Comando                        | Descrição                                               |
+| ------------------------------ | ------------------------------------------------------- |
+| docker container run           |                                                         |
+| docker container stop          |                                                         |
+| docker container ls            |                                                         |
+| docker container rm            |                                                         |
+| docker container top           | lista os processos de um container                      |
+| docker container inspect       | detalha a configuração de um container                  |
+| docker container stats         | apresenta as estatísticas de todos os containers        |
+| docker container port          | checkar quais as portas estão abertas naquele container |
+| docker network ls              |                                                         |
+| docker network inspect         |                                                         |
+| docker network create --driver |                                                         |
+| docker network connect         |                                                         |
+| docker network disconnect      |                                                         |
 
 ```docker
 docker run <imagem>
@@ -422,13 +428,44 @@ docker stop <container id>
 
 ## 5. FAQ
 
+### Imagens
+
+1. **Como buildar uma nova imagem de um Dockerfile sem o cache?** Caso algum pacote instalado em uma versão anterior for salvo na cache, e essa versão se atualizar, você vai buildar a imagem com a versão antiga. Assim, `docker image build --no-cache -t <tag>:<version> <Dockerfile path>`.
+
 ### Containers
 
-1. **Como sair do shell do container sem pará-lo?** <kbd>Ctrl</kbd> + <kbd>P</kbd> + <kbd>Q</kbd>
-2. **Como conectar em um container que está rodando?** `docker container attach <container ID>`
+1. **Como sair do shell do container sem pará-lo?** <kbd>Ctrl</kbd> + <kbd>P</kbd> + <kbd>Q</kbd> (*read escape sequence*)
+2. **Como conectar em um container que está rodando?** `docker container attach <container id>`
 3. **Rodei um container do apache/nginx com terminal interativo (`-ti`) e não abre nenhum shell. Por que?**
 O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio processo do servidor. Todo processo em execução neste container precisa estar rodando em foreground, não pode estar "daemonizado" (rodando como daemon - em segundo plano/background). Logo, é preciso passar a opção `-d` para rodar o container, ao invés de `-ti` - isso faz com que o container seja um daemon (não é possível dar `attach`).
-4. **Então, como conectar em um container rodando como daemon?** `docker container exe -ti <container ID> <cmd>`
+4. **Então, como conectar em um container rodando como daemon?** `docker container exec -ti <container id> <cmd>`
+5. **Como ver todos os detalhes de um container?** `docker container inspect <container id>`
+6. **Como ver o histórico de acesso e requisições para o container?** `docker container logs -f <container id>` ou, caso estiver rodando em foreground, o `attach` real-time log (entretanto, para sair depois o atalho de *read escape sequence* não funcionará).
+7. **Como passar para o container quanta memória e CPU o container pode utilizar?** `docker container run -d --memory 128M --cpus 0.5 nginx`. Pode-se verificar o tanto de memória e núcleo com o `inspect`, em "*Memory*" e "*NanoCpus*" (no qual 500000000 de nanos cpus = 0.5 CPU).
+> Para estressar o container, instalar o pacote **stress** com `apt update && apt install stress`, e rodar `stress --cpu 1 --vm 1 --vm-bytes 64M`
+8. **Como fazer a atualização na configuração de um container já em execução?** `docker container update <options> <container id>`. E.g. `--cpus 0.8 --memory 64M`.
+9. **Qual a diferença de *mount* do tipo *bind* e *volume*?** O bind será utilizado para quando eu já tenho um diretório no host e quero utilizá-lo dentro do container (e.g. `docker container run -ti --mount type=bind,src=<source path>,dst=<container mount path> <image name>` - as pastas ficam compartilhadas e sincronizadas). Já os volumes são administrados dentro de `/var/lib/docker/volumes` e precisam ser administrados para não saírem com nomes aleatórios. É possível compartilhar volumes entre containers. (e.g. `docker volume create <volume name>`, `docker container run -ti --mount type=volume,src=<volume name>,dst=<container mount path> <image name>`).
+10. **Em um container data-only, como fazer backup automaticamente?** No exemplo do volume criado por este container postgres: `docker container run -d -p 5432:5432 --name pqsql1 --mount type=volume,src=dbdados,dst=/data -e POSTGRESQL_USER=docker -e POSTRGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql`, é necessário criar um container para isso, apontando o diretório onde ele vai salvar o backup: `docker container run -ti --mount type=volume,src=dbdados,dst=/data --mount type=bind,scr=/opt/backup,dst=/backup debian tar -cvs /backup/bkp-banco.tar /data`.
+11. **Qual a diferença entre a opção do `docker container run`: `-p` e `-P`?** Para o `-p` é preciso passar a porta do host e a do container. O `-P` verifica se tem alguma porta aberta na imagem (EXPOSE do Dockerfile) e "binda" uma porta aleatória ao host.
+12. **O que o docker commit faz?** Basicamente, cria a imagem de um container a partir de um container já existente e customizado. Entretanto, não é a melhor maneira de fazer. O ideal sempre é ter o Dockerfile. `docker commit -m "<msg>" <container id>`
+
+### Dockerfile
+
+1. **O Dockerfile cria um container?** Não, ele cria uma imagem personalizada.
+2. **Qual a diferença do COPY para o ADD?** O ADD tem a mesma função que o COPY, entretanto ele pega arquivos .tar e copia ele extraído para dentro do container. Outra diferença é para arquivos remotos, que o ADD consegue fazer o download e adicionar dentro do container.
+
+> O ideal é colocar HEALTHCHECKING no compose
+### Docker Hub
+
+1. **Como subir uma imagem personalizada para o Docker hub?** Você precisa primeiramente colocar uma tag na sua imagem com `docker image tag <image id> <tag>`, sendo que o `<tag>` deve seguir o formato de `username/imagename:version`. Após isso, logar no seu Docker hub com: `docker login` (preencher com o login e senha) e dar o `docker push`.
+
+### Docker Registry
+
+1. **O que é o Docker Registry?** É o nome dado ao repositório remoto do Docker.
+2. **Como criar um Docker Registry?** Nada mais é que um container para registro: `docker run -d -p 5000:5000 --restart always --name registry registry:2`. Assim, a primeira coisa a ser feita para fazer o push para o Registry é dar logout do Docker Hub: `docker logout`. Depois, retaguear a imagem do registry local: `docker image tag <image id> <repository address>/<image name>:<version>` (onde, neste caso, `<repository addres>` = **localhost:5000**). Finalmente, para o push: `docker image push <repository address>/<image name>:<version>`.
+3. **Como ver as imagens que tenho carregadas no meu registry?** `curl localhost:5000/v2/_catalog`.
+4. **Como ver as tags de uma imagem no repositório registry?** `curl localhost:5000/v2/<image name>/tags/list`, ou dentro do container registry (`docker exec -ti <container id> sh`) na pasta: `cd /var/lib/registry/docker/registry/v2/repositories/`.
+5. 
 
 <!-- Markdown's Links -->
 <!-- SITES -->
