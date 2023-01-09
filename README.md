@@ -27,6 +27,8 @@
     - [Dockerfile](#dockerfile)
     - [Docker Hub](#docker-hub)
     - [Docker Registry](#docker-registry)
+    - [Docker Swarm](#docker-swarm)
+    - [Docker Compose](#docker-compose)
 
 ## 1. Instalação
 
@@ -465,7 +467,12 @@ O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio 
 2. **Como criar um Docker Registry?** Nada mais é que um container para registro: `docker run -d -p 5000:5000 --restart always --name registry registry:2`. Assim, a primeira coisa a ser feita para fazer o push para o Registry é dar logout do Docker Hub: `docker logout`. Depois, retaguear a imagem do registry local: `docker image tag <image id> <repository address>/<image name>:<version>` (onde, neste caso, `<repository addres>` = **localhost:5000**). Finalmente, para o push: `docker image push <repository address>/<image name>:<version>`.
 3. **Como ver as imagens que tenho carregadas no meu registry?** `curl localhost:5000/v2/_catalog`.
 4. **Como ver as tags de uma imagem no repositório registry?** `curl localhost:5000/v2/<image name>/tags/list`, ou dentro do container registry (`docker exec -ti <container id> sh`) na pasta: `cd /var/lib/registry/docker/registry/v2/repositories/`.
-5. 
+
+### Docker Swarm
+
+1. **O que é o Docker Swarm?** É um orquestrador que já vem embutido no Docker. Tem dois papéis importantes: o manager - administrando os clusters - e o worker - cuja principal função é somente ter container em execução. Entretanto, é possível executar container no manager, diferentemente do Kubernetes. DICA: sempre tem que ter mais de 50% dos managers em pé para o cluster estar saudável.
+
+### Docker Compose
 
 <!-- Markdown's Links -->
 <!-- SITES -->
