@@ -451,12 +451,15 @@ O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio 
 11. **Qual a diferença entre a opção do `docker container run`: `-p` e `-P`?** Para o `-p` é preciso passar a porta do host e a do container. O `-P` verifica se tem alguma porta aberta na imagem (EXPOSE do Dockerfile) e "binda" uma porta aleatória ao host.
 12. **O que o docker commit faz?** Basicamente, cria a imagem de um container a partir de um container já existente e customizado. Entretanto, não é a melhor maneira de fazer. O ideal sempre é ter o Dockerfile. `docker commit -m "<msg>" <container id>`
 
+### Network
+
 ### Dockerfile
 
 1. **O Dockerfile cria um container?** Não, ele cria uma imagem personalizada.
 2. **Qual a diferença do COPY para o ADD?** O ADD tem a mesma função que o COPY, entretanto ele pega arquivos .tar e copia ele extraído para dentro do container. Outra diferença é para arquivos remotos, que o ADD consegue fazer o download e adicionar dentro do container.
 
 > O ideal é colocar HEALTHCHECKING no compose
+
 ### Docker Hub
 
 1. **Como subir uma imagem personalizada para o Docker hub?** Você precisa primeiramente colocar uma tag na sua imagem com `docker image tag <image id> <tag>`, sendo que o `<tag>` deve seguir o formato de `username/imagename:version`. Após isso, logar no seu Docker hub com: `docker login` (preencher com o login e senha) e dar o `docker push`.
