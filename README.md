@@ -14,7 +14,6 @@
   - [3. Docker File](#3-docker-file)
   - [4. Comandos Intermediários e Avançados](#4-comandos-intermediários-e-avançados)
     - [4.1. Imagem](#41-imagem)
-      - [4.1.1. Resumo](#411-resumo)
     - [4.2. Container](#42-container)
       - [🢚 O que acontece no "docker container run"](#-o-que-acontece-no-docker-container-run)
       - [✍ Exercício de fixação: Gerenciando vários containers](#-exercício-de-fixação-gerenciando-vários-containers)
@@ -150,8 +149,6 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 ## 4. Comandos Intermediários e Avançados
 
 ### 4.1. Imagem
-
-#### 4.1.1. Resumo
 
 | Ação      | Comando                                         | Descrição                                                                                                                                                          |
 | --------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
