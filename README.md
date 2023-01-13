@@ -474,6 +474,8 @@ O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio 
 
 ### Docker Compose
 
+1. **O que é o Docker Compose?** É uma ferramenta usada para definir e executar aplicativos de vários contêineres do Docker. No Compose, um arquivo YAML é usado para configurar os serviços do aplicativo. Em seguida, você cria e inicia todos os serviços com base na sua configuração executando um só comando.
+
 <!-- Markdown's Links -->
 <!-- SITES -->
 [1]: https://landscape.cncf.io/?zoom=200
