@@ -23,10 +23,12 @@
   - [5. FAQ](#5-faq)
     - [Imagens](#imagens)
     - [Containers](#containers)
+    - [Network](#network)
     - [Dockerfile](#dockerfile)
     - [Docker Hub](#docker-hub)
     - [Docker Registry](#docker-registry)
     - [Docker Swarm](#docker-swarm)
+    - [Docker Secrets](#docker-secrets)
     - [Docker Compose](#docker-compose)
 
 ## 1. Instalação
@@ -472,10 +474,15 @@ O container do nginx/apache não tem como entrypoint o bash, mas sim o próprio 
 
 1. **O que é o Docker Swarm?** É um orquestrador que já vem embutido no Docker. Tem dois papéis importantes: o manager - administrando os clusters - e o worker - cuja principal função é somente ter container em execução. Entretanto, é possível executar container no manager, diferentemente do Kubernetes. DICA: sempre tem que ter mais de 50% dos managers em pé para o cluster estar saudável.
 
+### Docker Secrets
+
+
 ### Docker Compose
 
-1. **O que é o Docker Compose?** É uma ferramenta usada para definir e executar aplicativos de vários contêineres do Docker. No Compose, um arquivo YAML é usado para configurar os serviços do aplicativo. Em seguida, você cria e inicia todos os serviços com base na sua configuração executando um só comando.
-2. **Qual a diferen;a entre Docker e Docker Compose?**
+1. **O que é o Docker Compose?** É uma ferramenta usada para definir e executar aplicativos de vários contêineres do Docker. No Compose, um arquivo YAML é usado para configurar os serviços do aplicativo. Em seguida, você cria e inicia todos os serviços com base na sua configuração executando um só comando. No compose file, falarei como eu quero que a aplicação suba: portas, limitação de hardware, serviços, etc.
+2. **Qual a diferença entre Dockerfile e Docker Compose?** O docker compose file nada mais é do que uma forma de você passar para um arquivo como deseja que suas imagens, stack de aplicações sejam deploiados. Então utiliza-o sempre quando está pensando já na sua imagem pronta, com os serviços, portas, etc. Já o Dockerfile trata somente a imagem nua e crua.
+3. **O arquivo docker-compose precisa necessariamente ser em yaml?**
+4. **O que é uma stack? E um service?** Uma stack é a reunião de vários services, e services, a reunião de vários containers.
 
 <!-- Markdown's Links -->
 <!-- SITES -->
