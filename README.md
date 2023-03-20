@@ -150,18 +150,7 @@ Uma outra analogia simples para melhor compreensão é pensar em uma imagem do D
 
 ## 4. Comandos Intermediários e Avançados
 
-### 4.1. Imagem
-
-| Ação      | Comando                                         | Descrição                                                                                                                                                          |
-| --------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Iniciar   | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | Primeiro cria suma camada de contêiner gravável sobre a imagem especificada (`docker create`) e, em seguida inicia (`docker start`), usando o comando especificado |
-| Parar     |                                                 |                                                                                                                                                                    |
-| Listar    |                                                 |                                                                                                                                                                    |
-| Deletar   |                                                 |                                                                                                                                                                    |
-| Pausar    |                                                 |                                                                                                                                                                    |
-| Despausar |                                                 |                                                                                                                                                                    |
-
-### 4.2. Container
+### 4.1. Container
 
 Para iniciar um container, utilize o exemplo a seguir:
 
